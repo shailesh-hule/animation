@@ -1,0 +1,82 @@
+<html>
+    <head>
+        <script>
+            function loadImage(src){
+                var c = document.getElementById("myCanvas");
+                var ctx = c.getContext("2d");
+                var img = document.createElement("img")   ;
+                img.src = src;
+                img.onload = ()=>{
+                    ctx.clearRect(0, 0,500,500);
+                    ctx.drawImage(img, 0, 0,500,500);
+                };
+            }
+
+            let idleImagePath = (frameNumber) =>{
+                return './images/idle/'+frameNumber+'.png'; 
+            };
+
+            function startIdle(){
+                [1,2,3,4,5,6,7,8].map((e)=>{
+                    setTimeout(()=>{ 
+                        loadImage(idleImagePath(e));
+                    }, e*100);
+                });
+            }
+
+            window.addEventListener('load', function() {
+                startIdle();
+            });
+
+            let kickImagePath = (frameNumber) =>{
+                return './images/kick/'+frameNumber+'.png'; 
+            };
+
+            function startKick(){
+                [1,2,3,4,5,6,7].map((e)=>{
+                    setTimeout(function(){ 
+                        loadImage(kickImagePath(e));
+                    }, e*100);
+                });
+                var ele = document.getElementById("textMessage");
+                ele.innerHTML = "Nice Kick";
+            }
+
+            let punchImagePath = (frameNumber) =>{
+                return './images/punch/'+frameNumber+'.png'; 
+            };
+
+            function startPunch(){
+                [1,2,3,4,5,6,7].map((e)=>{
+                    setTimeout(function(){ 
+                        loadImage(punchImagePath(e));
+                    }, e*100);
+                });
+                var ele = document.getElementById("textMessage");
+                ele.innerHTML = "Nice Punch";
+            }
+        </script>    
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td><h1>Hey, Play with me!!</h1></td>
+            </tr>
+            <tr>
+                <td>
+                    <button onclick="startPunch()">Punch</button>
+                    <button onclick="startKick()">Kick</button>
+                    <a href="index.html" style="margin-left: 10px;">Back</a>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <canvas id="myCanvas" width="600" height="600" style="border:1px solid #d3d3d3;"></canvas>
+                </td>
+                <td>
+                    <span id="textMessage" style="color: red;font-weight: bold;font-size: 30; margin-left: 50px;">Click Punch/Kick</span>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
